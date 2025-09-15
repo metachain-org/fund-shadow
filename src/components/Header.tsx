@@ -1,5 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { Shield, Heart } from "lucide-react"
+import { Heart } from "lucide-react"
 
 export function Header() {
   return (

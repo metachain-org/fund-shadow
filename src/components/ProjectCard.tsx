@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Users, DollarSign, Clock, Shield } from "lucide-react"
+import { Users, DollarSign, Clock, CheckCircle } from "lucide-react"
 import { useState } from "react"
 
 export interface Project {
@@ -23,9 +23,10 @@ interface ProjectCardProps {
   onVote: (projectId: string, vote: 'yes' | 'no' | 'abstain') => void
   hasVoted?: boolean
   userVote?: 'yes' | 'no' | 'abstain'
+  isVoting?: boolean
 }
 
-export function ProjectCard({ project, onVote, hasVoted, userVote }: ProjectCardProps) {
+export function ProjectCard({ project, onVote, hasVoted, userVote, isVoting = false }: ProjectCardProps) {
   const [selectedVote, setSelectedVote] = useState<'yes' | 'no' | 'abstain' | null>(null)
   
   const votingPercentage = project.totalVoters > 0 ? (project.currentVotes / project.totalVoters) * 100 : 0
@@ -101,9 +102,9 @@ export function ProjectCard({ project, onVote, hasVoted, userVote }: ProjectCard
           <div className="space-y-3">
             {hasVoted ? (
               <div className="flex items-center justify-center gap-2 p-3 bg-accent/10 rounded-lg border border-accent/20">
-                <Shield className="h-4 w-4 text-accent" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 <span className="text-sm font-medium text-accent">
-                  Vote recorded privately • Your choice: {userVote?.toUpperCase()}
+                  Vote encrypted and recorded • Your choice: {userVote?.toUpperCase()}
                 </span>
               </div>
             ) : (
@@ -116,25 +117,28 @@ export function ProjectCard({ project, onVote, hasVoted, userVote }: ProjectCard
                     variant="vote-yes"
                     size="sm"
                     onClick={() => handleVote('yes')}
-                    disabled={hasVoted}
+                    disabled={hasVoted || isVoting}
+                    className={isVoting ? 'opacity-50' : ''}
                   >
-                    Fund
+                    {isVoting ? 'Encrypting...' : 'Fund'}
                   </Button>
                   <Button
                     variant="vote-no"
                     size="sm"
                     onClick={() => handleVote('no')}
-                    disabled={hasVoted}
+                    disabled={hasVoted || isVoting}
+                    className={isVoting ? 'opacity-50' : ''}
                   >
-                    Deny
+                    {isVoting ? 'Encrypting...' : 'Deny'}
                   </Button>
                   <Button
                     variant="vote-abstain"
                     size="sm"
                     onClick={() => handleVote('abstain')}
-                    disabled={hasVoted}
+                    disabled={hasVoted || isVoting}
+                    className={isVoting ? 'opacity-50' : ''}
                   >
-                    Abstain
+                    {isVoting ? 'Encrypting...' : 'Abstain'}
                   </Button>
                 </div>
               </>
