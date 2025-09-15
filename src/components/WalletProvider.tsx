@@ -11,7 +11,13 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactNode } from 'react'
 
 // Configure chains and project ID
-const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || import.meta.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
+const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || 
+                  import.meta.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ||
+                  '2ec9743d0d0cd7fb94dee1a7e6d33475' // Demo project ID for development
+
+if (!import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID && !import.meta.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID) {
+  console.warn('Using demo WalletConnect Project ID. For production, please set VITE_WALLET_CONNECT_PROJECT_ID or NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID environment variable.')
+}
 
 const config = getDefaultConfig({
   appName: 'Fund Shadow',

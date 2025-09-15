@@ -21,6 +21,12 @@ VITE_WALLET_CONNECT_PROJECT_ID=YOUR_WALLETCONNECT_ID
 VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
 ```
 
+## Development Mode
+
+If you don't set the WalletConnect Project ID, the application will use a demo project ID for development purposes. You'll see a warning in the console, but the app will still work for testing.
+
+For production deployment, you **must** provide your own WalletConnect Project ID.
+
 ## How to Get API Keys
 
 ### Infura API Key
